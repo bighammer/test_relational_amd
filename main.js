@@ -6,7 +6,7 @@ var TestView = Backbone.View.extend({
     render: function(){
         this.$el.html("<li>1</li><li>1</li><li>1</li><li>1</li>");
         $("#main").append(this.el);
-        console.log("render invoked.%s ", this.el);
+        console.log("render invoked. %s ", this.$el.html());
         return this;
     }
 //    ,
@@ -18,5 +18,4 @@ var TestView = Backbone.View.extend({
 });
 
 var view = new TestView();
-view.render();
-console.log(view.el);
+console.log(view.render().el);
