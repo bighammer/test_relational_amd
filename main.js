@@ -25,11 +25,14 @@ require.config({
 
 });
 
+var APP = {};
+
 
 define(['backbone', 'backbone-relational'], function (Backbone) {
 
-    var Child = Backbone.RelationalModel.extend();
-    var Parent = Backbone.RelationalModel.extend({
+    Backbone.Relational.store.addModelScope(APP);
+    APP.Child = Backbone.RelationalModel.extend();
+    APP.Parent = Backbone.RelationalModel.extend({
         relations : [
             {
                 key          : 'child',
@@ -40,6 +43,6 @@ define(['backbone', 'backbone-relational'], function (Backbone) {
 
     });
 
-    var test = new Parent();
+    var test = new APP.Parent();
 
 });
