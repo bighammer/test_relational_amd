@@ -1,21 +1,45 @@
+require.config({
 
+    paths : {
 
-var TestView = Backbone.View.extend({
-    tagName: "ul",
-    className:"test",
-    render: function(){
-        this.$el.html("<li>1</li><li>1</li><li>1</li><li>1</li>");
-        $("#main").append(this.el);
-        console.log("render invoked. %s ", this.$el.html());
-        return this;
+        js                    : 'js',
+        jquery                : 'js/jquery-1.8.3',
+        underscore            : 'js/underscore',
+        backbone              : 'js/backbone',
+        'backbone-relational' : 'js/backbone-relational'
+    },
+
+    shim : {
+        underscore : {
+            exports : '_'
+        },
+        backbone   : {
+            deps    : ['underscore', 'jquery'],
+            exports : 'Backbone'
+        },
+
+        'backbone-relational' : {
+            deps: ['backbone']
+        }
     }
-//    ,
-//
-//    initialize: function(){
-//        console.log("init invoked.");
-//        this.render();
-//    }
+
 });
 
-var view = new TestView();
-console.log(view.render().el);
+
+define(['backbone', 'backbone-relational'], function (Backbone) {
+
+    var Child = Backbone.RelationalModel.extend();
+    var Parent = Backbone.RelationalModel.extend({
+        relations : [
+            {
+                key          : 'child',
+                type         : Backbone.HasOne,
+                relatedModel : 'Child'
+            }
+        ]
+
+    });
+
+    var test = new Parent();
+
+});
