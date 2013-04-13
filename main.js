@@ -6,7 +6,8 @@ require.config({
         jquery                : 'js/jquery-1.8.3',
         underscore            : 'js/underscore',
         backbone              : 'js/backbone',
-        'backbone-relational' : 'js/backbone-relational'
+        'backbone-relational' : 'js/backbone-relational',
+        'child':'child'
     },
 
     shim : {
@@ -25,24 +26,26 @@ require.config({
 
 });
 
-var APP = {};
+//var APP = {};
 
 
-define(['backbone', 'backbone-relational'], function (Backbone) {
 
-    Backbone.Relational.store.addModelScope(APP);
-    APP.Child = Backbone.RelationalModel.extend();
-    APP.Parent = Backbone.RelationalModel.extend({
+
+define(['backbone', 'child', 'backbone-relational'], function (Backbone, Child) {
+
+    //Backbone.Relational.store.addModelScope(APP);
+
+    var Parent = Backbone.RelationalModel.extend({
         relations : [
             {
                 key          : 'child',
                 type         : Backbone.HasOne,
-                relatedModel : 'Child'
+                relatedModel : Child
             }
         ]
 
     });
 
-    var test = new APP.Parent();
+    var test = new Parent();
 
 });
